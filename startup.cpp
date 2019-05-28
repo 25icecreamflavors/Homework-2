@@ -502,89 +502,59 @@ void QuickSortList(LinkedList<T> &a, int left, int right)
 }
 
 template <typename T>
-void Merge(LinkedList<T> &a, int left, int middle, int right)
+void MergeList(LinkedList<T> &a, int left, int middle, int right)
 {
-  int s1 = middle - left + 1;
-  int s2 = right - middle;
-  
+  int s1 = middle + 1;
+  if (a.get(middle)->value <= a.get(s1)->value)
+  {
+    return;
+  }
+  while (left <= middle && s1 <= right)
+  {
+    if (a.get(left)->value <= a.get(s1)->value)
+    {
+      left++;
+    }
+    else
+    {
+      T temp = a.get(s1)->value;
+      int index = s1;
+      a.change(a.get(s1), s1, left);
+      left++;
+      middle++;
+      s1++;
+    }
+  }
 }
 
-
-// template <typename T>
-// void Merge(std::vector<T> &a, int left, int middle, int right)
-// {
-//   int s1 = middle - left + 1;
-//   int s2 = right - middle;
-//   std::vector<T> temp1 (s1);
-//   std::vector<T> temp2 (s2);
-//   for (int i = 0; i < s1; i++)
-//   {
-//     temp1[i] = a[left + i];
-//   }
-//   for (int i = 0; i < s2; i++)
-//   {
-//     temp2[i] = a[middle + 1 + i];
-//   }
-//   int index = left, i = 0, j = 0;
-//   while (i < s1 && j < s2)
-//   {
-//     if (temp1[i] <= temp2[j])
-//     {
-//       a[index] = temp1[i];
-//       i++;
-//     }
-//     else
-//     {
-//       a[index] = temp2[j];
-//       j++; 
-//     }
-//     index++;
-//   }
-//   while (i < s1)
-//   {
-//     a[index] = temp1[i];
-//     index++;
-//     i++;
-//   }
-//   while (j < s2)
-//   {
-//     a[index] = temp2[j];
-//     index++;
-//     j++;
-//   }
-// }
 template <typename T>
-void MergeSort(LinkedList<T> &a, int left, int right)
+void MergeSortList(LinkedList<T> &a, int left, int right)
 {
   if (left < right)
   {
     int middle = left + (right - left)/2;
-    MergeSort(a, left, middle);
-    MergeSort(a, middle + 1, right);
-    Merge(a, left, middle, right);
+    MergeSortList(a, left, middle);
+    MergeSortList(a, middle + 1, right);
+    MergeList(a, left, middle, right);
   }
 }
 
-// template <typename T>
-// void MergeSort(std::vector<T> &a, int left, int right)
-// {
-//   if (left < right)
-//   {
-//     int middle = left + (right - left)/2;
-//     MergeSort(a, left, middle);
-//     MergeSort(a, middle + 1, right);
-//     Merge(a, left, middle, right);
-//   }
-// }
+template <typename T>
+void RadixSortTen(LinkedList<T> &a)
+{
+
+}
 
 int main()
 {
-  LinkedList<int> bob;
-  for (int i = 0; i <= 21; i++)
+  LinkedList<std::string> bob;
+  for (int i = 0; i <= 5; i++)
   {
-    bob.push_back(Generator(-10, 99));
+    bob.push_back("flex");
   }
+  bob.push_back("aslk1");
+  bob.push_back("1uno");
   bob.print_list();
-  QuickSortList(bob, 0, 21);
+  MergeSortList(bob, 0, bob.size() - 1);
   bob.print_list();
 }
