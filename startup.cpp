@@ -492,7 +492,8 @@ void QuickSortList(LinkedList<T> &a, int left, int right)
     }
     else if (right > i + 1)
     {
-      
+      a.change(a.get(i + 1), i + 1, right);
+      a.change(a.get(right - 1), right - 1, i + 1);
     }
     index = i + 1;
     QuickSortList(a, left, index - 1);
@@ -500,37 +501,90 @@ void QuickSortList(LinkedList<T> &a, int left, int right)
   }
 }
 
+template <typename T>
+void Merge(LinkedList<T> &a, int left, int middle, int right)
+{
+  int s1 = middle - left + 1;
+  int s2 = right - middle;
+  
+}
+
+
 // template <typename T>
-// void QuickSort(std::vector<T> &a, int left, int right)
+// void Merge(std::vector<T> &a, int left, int middle, int right)
 // {
-//   int index;
+//   int s1 = middle - left + 1;
+//   int s2 = right - middle;
+//   std::vector<T> temp1 (s1);
+//   std::vector<T> temp2 (s2);
+//   for (int i = 0; i < s1; i++)
+//   {
+//     temp1[i] = a[left + i];
+//   }
+//   for (int i = 0; i < s2; i++)
+//   {
+//     temp2[i] = a[middle + 1 + i];
+//   }
+//   int index = left, i = 0, j = 0;
+//   while (i < s1 && j < s2)
+//   {
+//     if (temp1[i] <= temp2[j])
+//     {
+//       a[index] = temp1[i];
+//       i++;
+//     }
+//     else
+//     {
+//       a[index] = temp2[j];
+//       j++; 
+//     }
+//     index++;
+//   }
+//   while (i < s1)
+//   {
+//     a[index] = temp1[i];
+//     index++;
+//     i++;
+//   }
+//   while (j < s2)
+//   {
+//     a[index] = temp2[j];
+//     index++;
+//     j++;
+//   }
+// }
+template <typename T>
+void MergeSort(LinkedList<T> &a, int left, int right)
+{
+  if (left < right)
+  {
+    int middle = left + (right - left)/2;
+    MergeSort(a, left, middle);
+    MergeSort(a, middle + 1, right);
+    Merge(a, left, middle, right);
+  }
+}
+
+// template <typename T>
+// void MergeSort(std::vector<T> &a, int left, int right)
+// {
 //   if (left < right)
 //   {
-//     T pivot = a[right];
-//     int i = left - 1;
-//     for (int j = left; j <= right - 1; j++)
-//     {
-//       if (a[j] < pivot)
-//       {
-//         i++;
-//         std::swap(a[i], a[j]);
-//       }
-//     }
-//     std::swap(a[i + 1], a[right]);
-//     index = i + 1;
-//     QuickSort(a, left, index - 1);
-//     QuickSort(a, index + 1, right);
+//     int middle = left + (right - left)/2;
+//     MergeSort(a, left, middle);
+//     MergeSort(a, middle + 1, right);
+//     Merge(a, left, middle, right);
 //   }
 // }
 
 int main()
 {
   LinkedList<int> bob;
-  for (int i = 0; i <= 15; i++)
+  for (int i = 0; i <= 21; i++)
   {
-    bob.push_back(Generator(11, 99));
+    bob.push_back(Generator(-10, 99));
   }
   bob.print_list();
-  QuickSortList(bob, 0, 15);
+  QuickSortList(bob, 0, 21);
   bob.print_list();
 }
