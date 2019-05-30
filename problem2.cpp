@@ -854,7 +854,8 @@ void TestN(int length, std::vector<std::vector<double>> &a)
   res2 = res2 / 3;
   res3 = res3 / 3;
   a[0].push_back(res);
-  a[1].push_back(res3);
+  a[1].push_back(res2);
+  a[2].push_back(res3);
 }
 
 int main()
