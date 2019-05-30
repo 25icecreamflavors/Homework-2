@@ -821,7 +821,10 @@ int main()
   LinkedList<int> b,c,d;
   std::vector<std::vector<double>> time (6);
   std::vector<int> tests;
-  tests.push_back(4000);
+  for (int i = 1; i <= 5000; i++)
+  {
+    tests.push_back(i);
+  }
   for (int i = 0; i < tests.size(); i++)
   {
     TestInteger(tests[i], time);
